@@ -1,11 +1,17 @@
-﻿namespace GintamaArcsScrapper
+﻿using System.Threading.Tasks;
+using GintamaArcsScrapper.Utils;
+
+namespace GintamaArcsScrapper
 {
     class MainClass
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var scraper = new BlogScraper();
+            System.IO.File.Delete(FileHandler.FILEPATH);
+
+            var scraper = new PageScraper();
             scraper.Start();
+            await FileHandler.ConvertOutputFileToJson();
         }
     }
     

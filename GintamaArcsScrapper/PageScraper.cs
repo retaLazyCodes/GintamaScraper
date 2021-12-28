@@ -1,13 +1,11 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using GintamaArcsScrapper.Utils;
 using IronWebScraper;
 
 namespace GintamaArcsScrapper
 {
-    class BlogScraper : WebScraper
+    class PageScraper : WebScraper
     {
         private const string PAGE_URL = "https://gintama.fandom.com/wiki/Gintama_Episode_List";
         private const string CSS_SELECTOR = "#mw-content-text > div > table.wikitable > tbody > tr";
