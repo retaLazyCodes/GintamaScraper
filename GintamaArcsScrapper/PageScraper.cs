@@ -41,8 +41,10 @@ namespace GintamaArcsScrapper
         {
             var arc = response.MetaData.Get<Arc>("arc");
             var arcStory = GetArcDescription(response);
-            
+            var arcImage = GetArcImage(response);
+
             arc.Description = arcStory;
+            arc.Image = arcImage;
             Scrape(arc, "results.txt");
         }
 
@@ -60,8 +62,18 @@ namespace GintamaArcsScrapper
                     return arcStory;
                 }
             }
-
             return arcStory;
+        }
+        
+        private string GetArcImage(Response response)
+        {
+            var selector = ".pi-image-thumbnail";
+            var node = response.QuerySelectorAll(selector);
+            var imageUrl = node.Length > 1 
+                ? node[1].Attributes["src"] 
+                : node[0].Attributes["src"];
+            
+            return imageUrl;
         }
     }
 }
