@@ -29,7 +29,7 @@ namespace GintamaArcsScrapper
                     {"Episodes", strCells[1]},
                     {"Quantity_Episodes", Int32.Parse(strCells[2])},
                     {"Description", "lorem ipsum"},
-                }, "results");
+                }, "results.txt");
             }
         }
     }

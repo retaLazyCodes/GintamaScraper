@@ -1,13 +1,14 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GintamaArcsScrapper.Utils
 {
     public static class FileHandler
     {
-        public static string FILEPATH =
-            Path.Combine(Directory.GetCurrentDirectory(), "Scrape", "results");
+        public static readonly string FILE_PATH =
+            Path.Combine(Directory.GetCurrentDirectory(), "Scrape", "results.txt");
         
         public static async Task ConvertOutputFileToJson()
         {
@@ -18,15 +19,15 @@ namespace GintamaArcsScrapper.Utils
         
         private static string GiveJsonFormat()
         {
-            string newFileText = "[";
+            var newFileText = new StringBuilder("[");
             // Read the file line by line.  
-            foreach (string line in File.ReadLines(FILEPATH))
+            foreach (string line in File.ReadLines(FILE_PATH))
             {
                 var newLine = line + ',';
-                newFileText += newLine + Environment.NewLine;
+                newFileText.AppendLine(newLine);
             }
             
-            return newFileText;
+            return newFileText.ToString();
         }
         
         private static string CleanJsonText(string jsonFormatText)
@@ -42,7 +43,8 @@ namespace GintamaArcsScrapper.Utils
         static async Task WriteFileInDisk(string inputText)
         {
             Console.WriteLine("Writing JSON file in disk ...");
-            await File.WriteAllTextAsync(FILEPATH + ".json", inputText);
+            await File.WriteAllTextAsync
+                (FILE_PATH.Replace(".txt", ".json"), inputText);
             Console.WriteLine("File Written successfully!!");
         }
 
