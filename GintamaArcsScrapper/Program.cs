@@ -3,7 +3,7 @@ using GintamaArcsScrapper.Utils;
 
 namespace GintamaArcsScrapper
 {
-    class MainClass
+    static class MainClass
     {
         public static async Task Main(string[] args)
         {
