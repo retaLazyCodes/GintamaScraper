@@ -7,8 +7,6 @@ namespace GintamaArcsScrapper
     {
         public static async Task Main(string[] args)
         {
-            System.IO.File.Delete(FileHandler.FILE_PATH);
-
             var scraper = new PageScraper();
             scraper.Start();
             await FileHandler.ConvertOutputFileToJson();
