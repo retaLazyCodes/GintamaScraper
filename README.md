@@ -12,7 +12,7 @@ For this I need to do 4 things:
 
 ## How to run
 
-1. Install [.NET 5 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/5.0) to run.
+1. Install [.NET 5 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/5.0) and [MySQL](https://www.mysql.com) Server to run.
 2. Clone the repository.
 3. Open a terminal and navigate to the root project folder.
 4. Now run ```dotnet build``` to compile the project.

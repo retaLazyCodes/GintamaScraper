@@ -1,7 +1,11 @@
-namespace GintamaArcsScrapper.Entities
+using System.ComponentModel.DataAnnotations;
+
+namespace GintamaArcsScrapper.Models
 {
     public class Arc
     {
+        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Episodes { get; set; }
         public int QuantityEpisodes { get; set; }

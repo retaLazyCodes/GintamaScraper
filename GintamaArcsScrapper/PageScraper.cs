@@ -1,5 +1,5 @@
 using System.Linq;
-using GintamaArcsScrapper.Entities;
+using GintamaArcsScrapper.Models;
 using GintamaArcsScrapper.Utils;
 using IronWebScraper;
 

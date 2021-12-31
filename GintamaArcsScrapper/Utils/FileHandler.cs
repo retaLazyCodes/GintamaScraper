@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GintamaArcsScrapper.Utils
 {
@@ -10,11 +12,21 @@ namespace GintamaArcsScrapper.Utils
         public static readonly string FILE_PATH =
             Path.Combine(Directory.GetCurrentDirectory(), "Scrape", "results.txt");
         
-        public static async Task ConvertOutputFileToJson()
+        public static async Task<string> ConvertOutputFileToJson()
         {
            string jsonFormatText = GiveJsonFormat();
            string cleanJson = CleanJsonText(jsonFormatText);
-           await WriteFileInDisk(cleanJson);
+           try
+           {
+               await WriteFileInDisk(cleanJson);
+               var jsonFile = ReadJsonFromDisk();
+               return cleanJson;
+           }
+           catch (Exception e)
+           {
+               Console.WriteLine(e);
+               throw;
+           }
         }
         
         private static string GiveJsonFormat()
@@ -40,7 +52,7 @@ namespace GintamaArcsScrapper.Utils
             return cleanText;
         }
         
-        static async Task WriteFileInDisk(string inputText)
+        public static async Task WriteFileInDisk(string inputText)
         {
             Console.WriteLine("Writing JSON file in disk ...");
             await File.WriteAllTextAsync
@@ -48,6 +60,11 @@ namespace GintamaArcsScrapper.Utils
             Console.WriteLine("File Written successfully!!");
         }
 
+        private static string ReadJsonFromDisk()
+        {
+            string text = File.ReadAllText((FILE_PATH.Replace(".txt", ".json")));
+            return text;
+        }
 
        
     }
