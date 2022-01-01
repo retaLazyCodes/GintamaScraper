@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GintamaArcsScrapper.Context;
 using GintamaArcsScrapper.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GintamaArcsScrapper.Infrastructure
 {
@@ -18,16 +19,13 @@ namespace GintamaArcsScrapper.Infrastructure
         public async Task Insert(List<Arc> arcs)
         {
             _context.Database.EnsureCreated();
-            
-            // remove all records
-            var all = from c in _context.Arcs select c;
-            if (all.Count() > 0)
+
+            // remove all records if already exists
+            if (_context.Arcs.Any())
             {
-                _context.Arcs.RemoveRange(all);
-                _context.SaveChanges();
+                _context.Database.ExecuteSqlRaw("TRUNCATE TABLE Arcs");
             }
-            
-            // Add all scraped data
+            // Stores all scraped data
             await _context.Arcs.AddRangeAsync(arcs);
             await _context.SaveChangesAsync();
         } 
