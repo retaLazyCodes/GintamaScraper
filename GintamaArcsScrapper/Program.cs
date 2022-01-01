@@ -36,6 +36,11 @@ namespace GintamaArcsScrapper
             
             
             // scrape and save data to json file in disk
+            if(File.Exists(FileHandler.FILE_PATH))
+            {
+                File.Delete(FileHandler.FILE_PATH);
+                File.Delete(FileHandler.FILE_PATH.Replace(".txt", ".json"));
+            }
             var scraper = new PageScraper();
             scraper.Start();
             var json = await FileHandler.ConvertOutputFileToJson();
