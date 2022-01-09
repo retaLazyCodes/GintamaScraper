@@ -73,7 +73,21 @@ namespace GintamaArcsScrapper
                 ? node[1].Attributes["src"] 
                 : node[0].Attributes["src"];
             
-            return imageUrl;
+            return imageUrl.RemoveScale();
+        }
+    }
+    
+    public static class StringExtension
+    {   
+        public static string RemoveScale(this string str)
+        {
+            var strToRemove = "/scale-to-width-down/";
+            var indexOfScale = str.LastIndexOf(strToRemove);
+            if (indexOfScale != -1)
+            {
+                str = str.Remove(indexOfScale);
+            }
+            return str;
         }
     }
 }
