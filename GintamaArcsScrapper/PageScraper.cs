@@ -19,12 +19,12 @@ namespace GintamaArcsScrapper
         public override void Parse(Response response)
         {
             var arcRowSelector = "#mw-content-text > div > table.wikitable > tbody > tr";
-            var responseRows= response.Css(arcRowSelector).Skip(1);
+            var responseRows = response.Css(arcRowSelector).Skip(1);
             foreach (var rowHtmlNode in responseRows)
             {
                 string strRow = rowHtmlNode.TextContentClean;
                 var strCells = strRow.Separate('(', ')', '½');
-                
+
                 var arc = new Arc();
                 arc.Name = strCells[0];
                 arc.Episodes = strCells[1];
@@ -64,24 +64,24 @@ namespace GintamaArcsScrapper
             }
             return arcStory;
         }
-        
+
         private string GetArcImage(Response response)
         {
             var selector = ".pi-image-thumbnail";
             var node = response.QuerySelectorAll(selector);
-            var imageUrl = node.Length > 1 
-                ? node[1].Attributes["src"] 
+            var imageUrl = node.Length > 1
+                ? node[1].Attributes["src"]
                 : node[0].Attributes["src"];
-            
+
             return imageUrl.RemoveScale();
         }
     }
-    
+
     public static class StringExtension
-    {   
+    {
         public static string RemoveScale(this string str)
         {
-            var strToRemove = "/scale-to-width-down/";
+            var strToRemove = "/revision/latest/scale-to-width-down/";
             var indexOfScale = str.LastIndexOf(strToRemove);
             if (indexOfScale != -1)
             {
