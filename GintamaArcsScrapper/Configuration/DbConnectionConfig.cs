@@ -1,19 +1,23 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+using GintamaArcsScrapper.Utils;
 
 namespace GintamaArcsScrapper.Configuration
 {
     public class DbConnectionConfig
     {
-        public static string Server = "localhost";
-        public static string User = "root";
-        public static string Password = "finnelhumano";
-        public static string Database = "gintama";
-        public static int Port = 3306;
-        
-
         public static string GetConnectionString()
-        {
-            return $"server={Server};user={User};password={Password};database={Database};port={Port}";
+        {            
+            string jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "user-db-config.json");
+            string jsonDbConfig = File.ReadAllText(jsonPath);
+            dynamic parsedJson = JsonConvert.DeserializeObject(jsonDbConfig);
+
+            return @$"server={parsedJson.Server.Value};
+                    user={parsedJson.User.Value};
+                    password={parsedJson.Password.Value};
+                    database={parsedJson.Database.Value};
+                    port={parsedJson.Port.Value}";
         }
     }
 }

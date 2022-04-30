@@ -1,0 +1,7 @@
+{
+    "Server"      : "localhost",
+    "User"        : "root",
+    "Password"    : "root",
+    "Database"    : "gintama",
+    "Port"        : 3306
+}

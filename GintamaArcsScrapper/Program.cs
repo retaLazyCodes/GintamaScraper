@@ -11,7 +11,6 @@ using GintamaArcsScrapper.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace GintamaArcsScrapper
 {
@@ -34,7 +33,7 @@ namespace GintamaArcsScrapper
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             var dbService = serviceProvider.GetService<DbDao>();
             
-            
+
             // scrape and save data to json file in disk
             if(File.Exists(FileHandler.FILE_PATH))
             {
