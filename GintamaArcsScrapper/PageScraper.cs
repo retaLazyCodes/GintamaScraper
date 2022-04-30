@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using GintamaArcsScrapper.Models;
 using GintamaArcsScrapper.Utils;
@@ -40,17 +41,19 @@ namespace GintamaArcsScrapper
         private void ParseDetails(Response response)
         {
             var arc = response.MetaData.Get<Arc>("arc");
-            var arcStory = GetArcDescription(response);
+            var arcSummary = GetArcDescription(response);
             var arcImage = GetArcImage(response);
+            var arcDateRelease = GetArcReleaseDate(response);
 
-            arc.Description = arcStory;
+            arc.Description = arcSummary;
             arc.Image = arcImage;
+            arc.ReleaseDate = arcDateRelease;
             Scrape(arc, "results.txt");
         }
 
         private string GetArcDescription(Response response)
         {
-            var arcStory = "";
+            var arcSummary = "";
 
             for (int i = 1; i <= 10; i++)
             {
@@ -58,11 +61,11 @@ namespace GintamaArcsScrapper
                 var node = response.XPath(selector);
                 if (node.Length > 0 && node[0].TextContentClean != string.Empty)
                 {
-                    arcStory = node[0].TextContentClean;
-                    return arcStory;
+                    arcSummary = node[0].TextContentClean;
+                    return arcSummary;
                 }
             }
-            return arcStory;
+            return arcSummary;
         }
 
         private string GetArcImage(Response response)
@@ -75,6 +78,28 @@ namespace GintamaArcsScrapper
 
             return imageUrl.RemoveScale();
         }
+
+        private string GetArcReleaseDate(Response response)
+        {
+            var selector = $"//*[@id=\"mw-content-text\"]/div/aside/section[1]/div[4]/div";
+            HtmlNode[] node = null;
+            try
+            {
+                node = response.XPath(selector);
+            }
+            catch (Exception e)
+            {
+                if (node == null)
+                {
+                    selector = "//*[@id=\"mw-content-text\"]/div/aside/section[1]/div[3]/div";
+                    node = response.XPath(selector);
+                }
+            }
+
+            var releaseDate = node[0].TextContentClean;
+            return releaseDate;
+        }
+
     }
 
     public static class StringExtension
