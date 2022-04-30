@@ -15,8 +15,9 @@ For this I need to do 4 things:
 1. Install [.NET 5 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/5.0) and [MySQL](https://www.mysql.com) Server to run.
 2. Clone the repository.
 3. Open a terminal and navigate to the root project folder.
-4. Now run ```dotnet build``` to compile the project.
-5. Finally run ```dotnet run --project GintamaArcsScrapper``` to run the app.
+4. Edit the file called ```user-db-config.json``` with your MySQL credentials.
+5. Now run ```dotnet build``` to compile the project.
+6. Finally run ```dotnet run --project GintamaArcsScrapper``` to run the app.
 
 ## Contact
 
